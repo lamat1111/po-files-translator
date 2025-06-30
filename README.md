@@ -21,8 +21,7 @@ pip install openai polib python-dotenv
 
 4. Make sure the following files exist in the Quorum repo:
 
-- `src/i18n/LLM-prompt.txt` → custom prompt for tone, style, and translation instructions
-- `src/i18n/dictionary-base.json` → (optional) base terminology dictionary
+- `src/i18n/LLM-prompt.txt` and `src/i18n/LLM-prompt-creative.txt` → custom prompts for tone, style, and translation instructions
 - `.po` files inside language subfolders like: `src/i18n/it/messages.po`, `src/i18n/es/messages.po`, etc.
 
 ## 🚀 Usage
