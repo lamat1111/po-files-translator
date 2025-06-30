@@ -99,7 +99,7 @@ Strings to translate:
         return ["" for _ in entries]
 
 def process_po_file(po_path, lang_code, is_creative, custom_prompt):
-    print(f"\n📄 Translating '{lang_code}'")
+    print(f"\nTranslating '{lang_code}'")
     try:
         po = polib.pofile(str(po_path))
     except Exception as e:
@@ -111,7 +111,7 @@ def process_po_file(po_path, lang_code, is_creative, custom_prompt):
 
     for i in range(0, len(entries), BATCH_SIZE):
         batch_number = (i // BATCH_SIZE) + 1
-        print(f"\n🔄 Batch {batch_number}")
+        print(f"\nBatch {batch_number}")
         batch = entries[i:i + BATCH_SIZE]
         temperature = 0.8 if is_creative else TEMPERATURE
         translations = translate_batch(batch, lang_code, custom_prompt, temperature)
@@ -122,46 +122,18 @@ def process_po_file(po_path, lang_code, is_creative, custom_prompt):
     # Paths
     backup_path = po_path.with_suffix(".po.bak")
     try:
-        # Backup the original file
-        po_path.rename(backup_path)
-        print(f"📦 Original file backed up as: {backup_path.name}")
+        if backup_path.exists():
+            backup_path.unlink()  # Remove existing .bak if present
 
-        # Save the translated content to the original .po path
+        po_path.rename(backup_path)
+        print(f"Original file backed up as: {backup_path.name}")
+
         po.save(str(po_path))
         print(f"✅ Translated file saved as: {po_path.name}")
 
     except Exception as e:
-        logging.error(f"❌ Failed during file backup or saving translated file: {po_path}")
+        logging.error(f"❌ Failed to backup or save .po file: {po_path}")
         raise
-
-    print(f"\n📄 Translating '{lang_code}'")
-    try:
-        po = polib.pofile(str(po_path))
-    except Exception as e:
-        logging.error(f"❌ Failed to load .po file: {po_path}")
-        raise
-
-    entries = [e for e in po if not e.msgstr.strip() and e.msgid.strip()]
-    print(f"✏️  {len(entries)} entries to translate")
-
-    for i in range(0, len(entries), BATCH_SIZE):
-        batch_number = (i // BATCH_SIZE) + 1
-        print(f"\n🔄 Batch {batch_number}")
-        batch = entries[i:i + BATCH_SIZE]
-        temperature = 0.8 if is_creative else TEMPERATURE
-        translations = translate_batch(batch, lang_code, custom_prompt, temperature)
-        for entry, translation in zip(batch, translations):
-            entry.msgstr = translation
-        sleep(SLEEP_SECONDS)
-
-    output_path = po_path.with_name("messages.translated.po")
-    try:
-        po.save(str(output_path))
-        print(f"\n✅ Saved: {output_path.name}")
-    except Exception as e:
-        logging.error(f"❌ Failed to save translated file: {output_path}")
-        raise
-
 
 def find_available_languages():
     if not PO_ROOT_DIR.exists():
