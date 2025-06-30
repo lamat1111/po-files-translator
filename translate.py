@@ -109,6 +109,10 @@ def process_po_file(po_path, lang_code, is_creative, custom_prompt):
     entries = [e for e in po if not e.msgstr.strip() and e.msgid.strip()]
     print(f"✏️  {len(entries)} entries to translate")
 
+    if not entries:
+        print("⚪ No entries to translate. Skipping backup and save.")
+        return
+
     for i in range(0, len(entries), BATCH_SIZE):
         batch_number = (i // BATCH_SIZE) + 1
         print(f"\nBatch {batch_number}")
@@ -119,14 +123,13 @@ def process_po_file(po_path, lang_code, is_creative, custom_prompt):
             entry.msgstr = translation
         sleep(SLEEP_SECONDS)
 
-    # Paths
     backup_path = po_path.with_suffix(".po.bak")
     try:
         if backup_path.exists():
             backup_path.unlink()  # Remove existing .bak if present
 
         po_path.rename(backup_path)
-        print(f"Original file backed up as: {backup_path.name}")
+        print(f"📦 Original file backed up as: {backup_path.name}")
 
         po.save(str(po_path))
         print(f"✅ Translated file saved as: {po_path.name}")
