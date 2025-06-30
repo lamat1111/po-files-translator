@@ -19,10 +19,10 @@ PROJECT_DIR=/absolute/path/to/quorum-desktop
 pip install openai polib python-dotenv
 ```
 
-4. Make sure the following files exist in the Quorum repo:
+4. Edit the LLM prompts if needed:
 
-- `src/i18n/LLM-prompt.txt` and `src/i18n/LLM-prompt-creative.txt` → custom prompts for tone, style, and translation instructions
-- `.po` files inside language subfolders like: `src/i18n/it/messages.po`, `src/i18n/es/messages.po`, etc.
+- `/LLM-prompt.txt` and `/LLM-prompt-creative.txt` → custom prompts for tone, style, and translation instructions
+
 
 ## 🚀 Usage
 
