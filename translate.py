@@ -52,13 +52,13 @@ if not PROJECT_DIR.exists():
 logging.info(f"📁 Using project directory: {PROJECT_DIR}")
 
 # 📁 Paths
-PROMPT_PATH_CREATIVE = PROJECT_DIR / "src/i18n/LLM-prompt-creative.txt"
-PROMPT_PATH = PROJECT_DIR / "src/i18n/LLM-prompt.txt"
+PROMPT_PATH_CREATIVE = SCRIPT_DIR / "LLM-prompt-creative.txt"
+PROMPT_PATH = SCRIPT_DIR / "LLM-prompt.txt"
 PO_ROOT_DIR = PROJECT_DIR / "src/i18n"
 
 # ⚙️ Settings
 MODEL = "gpt-4o-mini"
-TEMPERATURE = 0.2 # increase if you ned more creative translations
+TEMPERATURE = 0.2 # increase if you need more creative translations
 BATCH_SIZE = 30 # how many strings sent to the LLM
 SLEEP_SECONDS = 1
 
