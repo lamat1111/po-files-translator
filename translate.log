@@ -1,0 +1,148 @@
+2025-06-30 10:45:07,076 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 10:45:07,077 — INFO — 🛠️  Starting translation script...
+2025-06-30 10:45:07,078 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 10:45:07,079 — INFO — 📄 Starting translation for [de] — D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop\src\i18n\de\messages.po
+2025-06-30 10:45:07,081 — INFO — ✏️  94 entries to translate in 'de'
+2025-06-30 10:45:07,081 — INFO — 🚀 Sending batch of 30 entries to GPT for language: de
+2025-06-30 10:45:14,840 — ERROR — Mismatch: expected 30 translations, got 31
+2025-06-30 10:45:14,840 — ERROR — 💥 Error during translation batch
+Traceback (most recent call last):
+  File "D:\Users\Niccolò Angeli\Documents\AI tools\Python\po-files-translator\translate-po-files.py", line 105, in translate_batch
+    raise ValueError(f"❌ {error_msg}\n\nPrompt sent:\n{joined_lines}\n\nResponse:\n{content}")
+ValueError: ❌ Mismatch: expected 30 translations, got 31
+
+Prompt sent:
+"File cannot be larger than {maxFileSize}"
+"Your profile image size must be {maxFileSize} or less and must be a PNG, JPG, or JPEG file extension."
+"Replying to {user}"
+"{role} - {count}"
+"No Role - {count}"
+"Account Address"
+"Add Group"
+"Add Space"
+"Add up to 50 custom emoji. Custom emojis can only be used within a Space."
+"Add up to 50 custom stickers. Custom stickers can only be used within a Space."
+"Adjust security-related settings, which may impact user  experience but increase the security of your Quorum account."
+"Appearance"
+"Away"
+"Busy"
+"Choose your preferred theme for Quorum."
+"Click the button below to create a backup of your key info, because once it's gone, it's gone  forever. You may be prompted to authenticate again."
+"Click to copy"
+"Copied!"
+"Copy address to clipboard"
+"Copy invite link to clipboard"
+"Copy to clipboard"
+"Could not add Space"
+"Could not obtain manifest for Space"
+"Create a Space"
+"Creating Space..."
+"Current Invite Link"
+"decrypted space with no known config key"
+"Decrypted Space with no known hub key"
+"Default Space settings provide the most typical chat experience, but for higher privacy guarantees, review Advanced Settings."
+"Display Name"
+
+Response:
+Here are the translated strings in German:
+
+"Datei darf nicht größer als {maxFileSize} sein"
+"Die Größe Ihres Profilbildes muss {maxFileSize} oder kleiner sein und muss eine PNG-, JPG- oder JPEG-Dateierweiterung haben."
+"Antwort an {user}"
+"{role} - {count}"
+"Keine Rolle - {count}"
+"Kontoadresse"
+"Gruppe hinzufügen"
+"Space hinzufügen"
+"Fügen Sie bis zu 50 benutzerdefinierte Emoji hinzu. Benutzerdefinierte Emojis können nur innerhalb eines Space verwendet werden."
+"Fügen Sie bis zu 50 benutzerdefinierte Sticker hinzu. Benutzerdefinierte Sticker können nur innerhalb eines Space verwendet werden."
+"Passen Sie sicherheitsrelevante Einstellungen an, die die Benutzererfahrung beeinträchtigen können, aber die Sicherheit Ihres Quorum-Kontos erhöhen."
+"Erscheinungsbild"
+"Abwesend"
+"Beschäftigt"
+"Wählen Sie Ihr bevorzugtes Thema für Quorum."
+"Klicken Sie auf die Schaltfläche unten, um eine Sicherung Ihrer Schlüsselinformationen zu erstellen, denn wenn sie weg sind, sind sie für immer weg. Möglicherweise werden Sie aufgefordert, sich erneut zu authentifizieren."
+"Klicken zum Kopieren"
+"Kopiert!"
+"Adresse in die Zwischenablage kopieren"
+"Einladungslink in die Zwischenablage kopieren"
+"In die Zwischenablage kopieren"
+"Konnte Space nicht hinzufügen"
+"Konnte Manifest für Space nicht abrufen"
+"Einen Space erstellen"
+"Space wird erstellt..."
+"Aktueller Einladungslink"
+"entschlüsselter Space ohne bekannten Konfigurationsschlüssel"
+"Entschlüsselter Space ohne bekannten Hub-Schlüssel"
+"Die Standardeinstellungen für Space bieten das typischste Chat-Erlebnis, aber für höhere Datenschutzgarantien überprüfen Sie die erweiterten Einstellungen."
+"Anzeigename"
+2025-06-30 10:45:15,844 — INFO — 🚀 Sending batch of 30 entries to GPT for language: de
+2025-06-30 10:45:22,928 — INFO — 🚀 Sending batch of 30 entries to GPT for language: de
+2025-06-30 10:45:37,107 — INFO — 🚀 Sending batch of 4 entries to GPT for language: de
+2025-06-30 10:45:40,039 — INFO — ✅ Saved: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop\src\i18n\de\messages.translated.po
+2025-06-30 10:45:40,039 — INFO — 🎉 Translation complete.
+2025-06-30 10:51:47,686 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 10:51:47,687 — INFO — 🛠️  Starting translation script...
+2025-06-30 10:51:47,688 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 10:51:47,688 — INFO — 📄 Starting translation for [de] — D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop\src\i18n\de\messages.po
+2025-06-30 10:51:47,691 — INFO — ✏️  94 entries to translate in 'de'
+2025-06-30 10:51:47,691 — INFO — 🚀 Sending batch of 30 entries to GPT for language: de
+2025-06-30 10:51:53,574 — INFO — 🚀 Sending batch of 30 entries to GPT for language: de
+2025-06-30 10:51:58,848 — INFO — 🚀 Sending batch of 30 entries to GPT for language: de
+2025-06-30 10:52:08,147 — INFO — 🚀 Sending batch of 4 entries to GPT for language: de
+2025-06-30 10:52:10,389 — INFO — ✅ Saved: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop\src\i18n\de\messages.translated.po
+2025-06-30 10:52:10,390 — INFO — 🎉 Translation complete.
+2025-06-30 11:01:04,261 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:01:04,261 — INFO — 🛠️  Starting translation script...
+2025-06-30 11:01:04,263 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 11:01:42,262 — INFO — 🎉 Translation complete.
+2025-06-30 11:02:59,974 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:02:59,975 — INFO — 🛠️  Starting translation script...
+2025-06-30 11:02:59,976 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 11:03:36,115 — INFO — 🎉 Translation complete.
+2025-06-30 11:04:51,993 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:04:51,994 — INFO — 🛠️  Starting translation script...
+2025-06-30 11:04:51,996 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 11:05:36,238 — INFO — 🎉 Translation complete.
+2025-06-30 11:16:19,873 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:16:19,874 — INFO — 🛠️  Starting translation script...
+2025-06-30 11:16:19,876 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 11:17:03,203 — INFO — 🎉 Translation complete.
+2025-06-30 11:24:02,777 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:24:02,778 — CRITICAL — ❌ Failed to read prompt file: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop\src\i18n\LLM-prompt.txt
+2025-06-30 11:25:52,412 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:25:52,413 — INFO — 🛠️  Starting translation script...
+2025-06-30 11:25:52,415 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 11:25:52,419 — CRITICAL — 🚫 Script terminated due to an error.
+2025-06-30 11:29:05,213 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 11:29:05,214 — INFO — 🛠️  Starting translation script...
+2025-06-30 11:29:05,216 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 11:30:01,355 — INFO — 🎉 Translation complete.
+2025-06-30 15:57:03,186 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 15:57:03,207 — INFO — 🛠️  Starting translation script...
+2025-06-30 15:57:03,216 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 15:57:45,888 — INFO — 🎉 Translation complete.
+2025-06-30 16:01:23,312 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 16:01:23,313 — INFO — 🛠️  Starting translation script...
+2025-06-30 16:01:23,315 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 16:02:18,486 — ERROR — ❌ Failed to backup or save .po file: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop\src\i18n\cs\messages.po
+2025-06-30 16:02:18,486 — CRITICAL — 🚫 Script terminated due to an error.
+2025-06-30 16:04:47,008 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 16:04:47,009 — INFO — 🛠️  Starting translation script...
+2025-06-30 16:04:47,010 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 16:05:21,714 — INFO — 🎉 Translation complete.
+2025-06-30 16:08:47,274 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 16:08:47,275 — INFO — 🛠️  Starting translation script...
+2025-06-30 16:08:47,276 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 16:09:55,894 — INFO — 🎉 Translation complete.
+2025-06-30 16:14:42,168 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 16:14:42,169 — INFO — 🛠️  Starting translation script...
+2025-06-30 16:14:42,170 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 16:15:20,928 — INFO — 🎉 Translation complete.
+2025-06-30 16:15:49,159 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 16:15:49,160 — INFO — 🛠️  Starting translation script...
+2025-06-30 16:15:49,162 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW
+2025-06-30 16:20:33,066 — INFO — 🎉 Translation complete.
+2025-06-30 16:24:06,877 — INFO — 📁 Using project directory: D:\Users\Niccolò Angeli\Documents\lavori\Quilibrium\Github\quorum-desktop
+2025-06-30 16:24:06,878 — INFO — 🛠️  Starting translation script...
+2025-06-30 16:24:06,880 — INFO — 🌐 Available languages: ar, cs, da, de, el, en, en-PI, es, fi, fr, he, id, it, ja, ko, nl, no, pl, pt, ro, ru, sk, sl, sr, sv, th, tr, uk, vi, zh-CN, zh-TW

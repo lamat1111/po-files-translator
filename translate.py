@@ -13,7 +13,7 @@ load_dotenv()
 
 # 📝 Setup logging
 SCRIPT_DIR = Path(__file__).parent
-LOG_PATH = SCRIPT_DIR / "translate-po-files.log"
+LOG_PATH = SCRIPT_DIR / "translate.log"
 
 # File handler: logs everything
 file_handler = logging.FileHandler(LOG_PATH, encoding="utf-8")
