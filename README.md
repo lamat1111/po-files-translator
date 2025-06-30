@@ -1,48 +1,70 @@
-# 🧠 GPT Translator for Quorum .po Files
+# 🧠 GPT Translator for Quorum `.po` Files
 
-Translate your `.po` files using OpenAI's GPT models. Ideal for localizing Quorum UI with context-aware, consistent translations.
+This script translates `.po` files using OpenAI's GPT models, with context-aware batches and custom prompts. It's designed for localizing the Quorum UI with consistent, high-quality translations.
 
 ## 🔧 Setup
 
-1. Clone this repo and place the script inside the `quorum-desktop` folder.
-2. Install dependencies:
+1. Clone this repo or copy the script into your `quorum-desktop` folder.
 
-```bash
-pip install openai polib
+2. Create a `.env` file in the **same folder as the script**, with the following variables:
+
+```
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+PROJECT_DIR=/absolute/path/to/quorum-desktop
 ```
 
-3. Set your OpenAI API key:
+3. Install the required Python packages:
 
-```python
-openai.api_key = "sk-..."
+```
+pip install openai polib python-dotenv
 ```
 
 4. Make sure the following files exist:
-- `src/i18n/LLM-prompt.txt` → custom prompt for translation tone/style
-- `src/i18n/dictionary-base.json` → optional base dictionary for terminology
-- `.po` files inside `src/i18n/<lang>/messages.po`
+
+- `src/i18n/LLM-prompt.txt` → custom prompt for tone, style, and translation instructions
+- `src/i18n/dictionary-base.json` → (optional) base terminology dictionary
+- `.po` files inside language subfolders like: `src/i18n/it/messages.po`, `src/i18n/es/messages.po`, etc.
 
 ## 🚀 Usage
 
-```bash
+Translate specific languages:
+
+```
 python translate.py --langs it,es
 ```
 
-Or to translate all:
+Translate all available `.po` files:
 
-```bash
+```
 python translate.py --langs all
 ```
 
 ## 📝 Output
 
-Translated files are saved as `messages.translated.po` alongside the original.
+Translated `.po` files are saved as:
 
-## ⚙️ Settings
+```
+src/i18n/<lang>/messages.translated.po
+```
 
-Adjust model, batch size, and sleep delay at the top of the script.
+They remain in the same directory as the originals.
+
+## ⚙️ Configuration
+
+You can adjust the following settings directly in the script:
+
+- `MODEL` → OpenAI model to use (`gpt-4o`, `gpt-4`, etc.)
+- `BATCH_SIZE` → Number of strings to send per request
+- `SLEEP_SECONDS` → Delay between GPT calls
+
+## 🛡️ Error Handling
+
+The script includes:
+
+- Validation for missing API keys or invalid project paths
+- Logging to `translate-po-files.log`
+- Clear error messages in the terminal for missing files or mismatched responses
 
 ---
 
-Made for Quorum, but adaptable to any GPT-assisted localization flow.
-
+Built for Quorum, but flexible enough to use in any GPT-powered translation pipeline.
