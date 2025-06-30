@@ -8,6 +8,9 @@ from time import sleep
 import re
 import logging
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # 📝 Setup logging
 SCRIPT_DIR = Path(__file__).parent
 LOG_PATH = SCRIPT_DIR / "translate-po-files.log"
@@ -29,29 +32,51 @@ logging.basicConfig(
     handlers=[file_handler, console_handler]
 )
 
-
-def clean_line(line):
-    return re.sub(r'^"+|"+$', '', line).strip()
-
 # 🔐 API Key
-openai.api_key = "sk-..."
+openai.api_key = os.getenv("OPENAI_API_KEY")
+if not openai.api_key:
+    logging.critical("❌ OPENAI_API_KEY not set. Please check your .env file.")
+    raise ValueError("OPENAI_API_KEY not set.")
+
+# 📁 Project path
+project_dir_raw = os.getenv("PROJECT_DIR")
+if not project_dir_raw:
+    logging.critical("❌ PROJECT_DIR not set. Please check your .env file.")
+    raise ValueError("PROJECT_DIR not set.")
+
+PROJECT_DIR = Path(project_dir_raw).resolve()
+if not PROJECT_DIR.exists():
+    logging.critical(f"❌ PROJECT_DIR does not exist: {PROJECT_DIR}")
+    raise FileNotFoundError(f"PROJECT_DIR does not exist: {PROJECT_DIR}")
+
+logging.info(f"📁 Using project directory: {PROJECT_DIR}")
 
 # 📁 Paths
-PROJECT_DIR = Path("...")  # path to local quorum-desktop folder
 PROMPT_PATH = PROJECT_DIR / "src/i18n/LLM-prompt.txt"
 DICT_PATH = PROJECT_DIR / "src/i18n/dictionary-base.json"
 PO_ROOT_DIR = PROJECT_DIR / "src/i18n"
 
 # ⚙️ Settings
 MODEL = "gpt-4o"
-BATCH_SIZE = 50
+BATCH_SIZE = 30
 SLEEP_SECONDS = 1
 
 # 🧠 Load prompt and dictionary
-custom_prompt = PROMPT_PATH.read_text(encoding="utf-8")
+try:
+    custom_prompt = PROMPT_PATH.read_text(encoding="utf-8")
+except Exception as e:
+    logging.critical(f"❌ Failed to read prompt file: {PROMPT_PATH}")
+    raise
 
 # Dictionary not used atm
-# dictionary = json.load(DICT_PATH.open("r", encoding="utf-8")) 
+# try:
+#     dictionary = json.load(DICT_PATH.open("r", encoding="utf-8"))
+# except Exception as e:
+#     logging.warning(f"⚠️  Failed to load dictionary (optional): {e}")
+#     dictionary = {}
+
+def clean_line(line):
+    return re.sub(r'^"+|"+$', '', line).strip()
 
 def translate_batch(entries, lang_code, prompt_base):
     lines = [f'"{e.msgid}"' for e in entries]
@@ -65,7 +90,7 @@ Strings to translate:
 {joined_lines}
 """
     try:
-        logging.info(f"Sending batch of {len(entries)} entries to GPT for lang: {lang_code}")
+        logging.info(f"🚀 Sending batch of {len(entries)} entries to GPT for language: {lang_code}")
         response = openai.ChatCompletion.create(
             model=MODEL,
             messages=[{"role": "user", "content": full_prompt}],
@@ -82,14 +107,19 @@ Strings to translate:
         return translations
 
     except Exception as e:
-        logging.exception("Error during translation batch")
+        logging.exception("💥 Error during translation batch")
         return ["" for _ in entries]
 
 def process_po_file(po_path, lang_code):
-    logging.info(f"Starting translation for {lang_code} — {po_path}")
-    po = polib.pofile(str(po_path))
+    logging.info(f"📄 Starting translation for [{lang_code}] — {po_path}")
+    try:
+        po = polib.pofile(str(po_path))
+    except Exception as e:
+        logging.error(f"❌ Failed to load .po file: {po_path}")
+        raise
+
     entries = [e for e in po if not e.msgstr.strip() and e.msgid.strip()]
-    logging.info(f"{len(entries)} entries to translate in {lang_code}")
+    logging.info(f"✏️  {len(entries)} entries to translate in '{lang_code}'")
 
     for i in range(0, len(entries), BATCH_SIZE):
         batch = entries[i:i + BATCH_SIZE]
@@ -99,14 +129,23 @@ def process_po_file(po_path, lang_code):
         sleep(SLEEP_SECONDS)
 
     output_path = po_path.with_name("messages.translated.po")
-    po.save(str(output_path))
-    logging.info(f"✅ Saved: {output_path}")
+    try:
+        po.save(str(output_path))
+        logging.info(f"✅ Saved: {output_path}")
+    except Exception as e:
+        logging.error(f"❌ Failed to save translated file: {output_path}")
+        raise
 
 def find_available_languages():
-    return sorted([
+    if not PO_ROOT_DIR.exists():
+        logging.critical(f"❌ PO_ROOT_DIR does not exist: {PO_ROOT_DIR}")
+        raise FileNotFoundError(f"PO_ROOT_DIR not found: {PO_ROOT_DIR}")
+
+    langs = [
         subdir.name for subdir in PO_ROOT_DIR.iterdir()
         if (subdir / "messages.po").exists()
-    ])
+    ]
+    return sorted(langs)
 
 def main():
     parser = argparse.ArgumentParser(description="Translate .po files using GPT")
@@ -114,7 +153,7 @@ def main():
                         help="Comma-separated list of language codes (e.g. it,es) or 'all'")
     args = parser.parse_args()
 
-    logging.info("Starting translation script")
+    logging.info("🛠️  Starting translation script...")
     available_langs = find_available_languages()
     logging.info(f"🌐 Available languages: {', '.join(available_langs)}")
 
@@ -124,8 +163,8 @@ def main():
         langs_to_translate = args.langs.split(",")
         for lang in langs_to_translate:
             if lang not in available_langs:
-                logging.error(f"No messages.po found for language: {lang}")
-                raise FileNotFoundError(f"❌ No messages.po found for language: {lang}")
+                logging.error(f"❌ No messages.po found for language: {lang}")
+                raise FileNotFoundError(f"No messages.po found for language: {lang}")
 
     for lang in langs_to_translate:
         po_path = PO_ROOT_DIR / lang / "messages.po"
@@ -134,4 +173,8 @@ def main():
     logging.info("🎉 Translation complete.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        logging.critical("🚫 Script terminated due to an error.")
+        raise
