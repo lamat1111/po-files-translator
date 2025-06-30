@@ -52,33 +52,21 @@ if not PROJECT_DIR.exists():
 logging.info(f"📁 Using project directory: {PROJECT_DIR}")
 
 # 📁 Paths
+PROMPT_PATH_CREATIVE = PROJECT_DIR / "src/i18n/LLM-prompt-creative.txt"
 PROMPT_PATH = PROJECT_DIR / "src/i18n/LLM-prompt.txt"
-DICT_PATH = PROJECT_DIR / "src/i18n/dictionary-base.json"
 PO_ROOT_DIR = PROJECT_DIR / "src/i18n"
 
 # ⚙️ Settings
-MODEL = "gpt-4o"
-BATCH_SIZE = 30
+MODEL = "gpt-4o-mini"
+TEMPERATURE = 0.2 # increase if you ned more creative translations
+BATCH_SIZE = 30 # how many strings sent to the LLM
 SLEEP_SECONDS = 1
 
-# 🧠 Load prompt and dictionary
-try:
-    custom_prompt = PROMPT_PATH.read_text(encoding="utf-8")
-except Exception as e:
-    logging.critical(f"❌ Failed to read prompt file: {PROMPT_PATH}")
-    raise
-
-# Dictionary not used atm
-# try:
-#     dictionary = json.load(DICT_PATH.open("r", encoding="utf-8"))
-# except Exception as e:
-#     logging.warning(f"⚠️  Failed to load dictionary (optional): {e}")
-#     dictionary = {}
 
 def clean_line(line):
     return re.sub(r'^"+|"+$', '', line).strip()
 
-def translate_batch(entries, lang_code, prompt_base):
+def translate_batch(entries, lang_code, prompt_base, temperature):
     lines = [f'"{e.msgid}"' for e in entries]
     joined_lines = "\n".join(lines)
 
@@ -90,11 +78,11 @@ Strings to translate:
 {joined_lines}
 """
     try:
-        logging.info(f"🚀 Sending batch of {len(entries)} entries to GPT for language: {lang_code}")
+        print(f"→ Translating batch ({len(entries)} strings)...")
         response = openai.ChatCompletion.create(
             model=MODEL,
             messages=[{"role": "user", "content": full_prompt}],
-            temperature=0.2
+            temperature=temperature
         )
         content = response.choices[0].message.content.strip()
         translations = [clean_line(line) for line in content.split("\n") if line.strip()]
@@ -110,8 +98,8 @@ Strings to translate:
         logging.exception("💥 Error during translation batch")
         return ["" for _ in entries]
 
-def process_po_file(po_path, lang_code):
-    logging.info(f"📄 Starting translation for [{lang_code}] — {po_path}")
+def process_po_file(po_path, lang_code, is_creative, custom_prompt):
+    print(f"\n📄 Translating '{lang_code}'")
     try:
         po = polib.pofile(str(po_path))
     except Exception as e:
@@ -119,11 +107,14 @@ def process_po_file(po_path, lang_code):
         raise
 
     entries = [e for e in po if not e.msgstr.strip() and e.msgid.strip()]
-    logging.info(f"✏️  {len(entries)} entries to translate in '{lang_code}'")
+    print(f"✏️  {len(entries)} entries to translate")
 
     for i in range(0, len(entries), BATCH_SIZE):
+        batch_number = (i // BATCH_SIZE) + 1
+        print(f"\n🔄 Batch {batch_number}")
         batch = entries[i:i + BATCH_SIZE]
-        translations = translate_batch(batch, lang_code, custom_prompt)
+        temperature = 0.8 if is_creative else TEMPERATURE
+        translations = translate_batch(batch, lang_code, custom_prompt, temperature)
         for entry, translation in zip(batch, translations):
             entry.msgstr = translation
         sleep(SLEEP_SECONDS)
@@ -131,10 +122,11 @@ def process_po_file(po_path, lang_code):
     output_path = po_path.with_name("messages.translated.po")
     try:
         po.save(str(output_path))
-        logging.info(f"✅ Saved: {output_path}")
+        print(f"\n✅ Saved: {output_path.name}")
     except Exception as e:
         logging.error(f"❌ Failed to save translated file: {output_path}")
         raise
+
 
 def find_available_languages():
     if not PO_ROOT_DIR.exists():
@@ -151,7 +143,17 @@ def main():
     parser = argparse.ArgumentParser(description="Translate .po files using GPT")
     parser.add_argument("--langs", type=str, required=True,
                         help="Comma-separated list of language codes (e.g. it,es) or 'all'")
+    parser.add_argument("--creative", action="store_true", help="Use creative prompt and higher temperature")
     args = parser.parse_args()
+
+    # 🧠 Load prompt and dictionary
+    try:
+        prompt_path = PROMPT_PATH_CREATIVE if args.creative else PROMPT_PATH
+        custom_prompt = prompt_path.read_text(encoding="utf-8")
+    except Exception as e:
+        logging.critical(f"❌ Failed to read prompt file: {prompt_path}")
+        raise
+
 
     logging.info("🛠️  Starting translation script...")
     available_langs = find_available_languages()
@@ -168,7 +170,7 @@ def main():
 
     for lang in langs_to_translate:
         po_path = PO_ROOT_DIR / lang / "messages.po"
-        process_po_file(po_path, lang)
+        process_po_file(po_path, lang, args.creative, custom_prompt)
 
     logging.info("🎉 Translation complete.")
 

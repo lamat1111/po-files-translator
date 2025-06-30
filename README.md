@@ -39,6 +39,19 @@ Translate all available `.po` files:
 python translate.py --langs all
 ```
 
+
+### 🎨 Creative Languages
+
+Some languages (like `en-PI` for Pirate English) benefit from a more creative tone. To enable this, add the `--creative` flag:
+
+```
+python translate.py --langs en-PI --creative
+```
+
+This will modify the translation prompt to encourage more expressive or poetic output, ideal for artistic or experimental localizations. 
+
+**IMPORTANT: you have to edit the file `src\i18n\LLM-prompt-creative.txt` in your local Quorum repo with specific instructions for the creative language you want to use.**
+
 ## 📝 Output
 
 Translated `.po` files are saved as:
