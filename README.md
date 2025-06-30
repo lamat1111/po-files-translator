@@ -1,6 +1,6 @@
 # 🧠 GPT Translator for Quorum `.po` Files
 
-This script translates `.po` files using OpenAI's GPT models, with context-aware batches and custom prompts. It's designed for localizing the Quorum UI with consistent, high-quality translations.
+This script translates `.po` files using OpenAI's GPT models, with context-aware batches and custom prompts. It's designed for localizing the [Quorum UI](https://github.com/QuilibriumNetwork/quorum-desktop) with consistent, high-quality translations.
 
 ## 🔧 Setup
 
