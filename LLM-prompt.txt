@@ -18,24 +18,36 @@ You are translating an app UI using gettext .po files.
 - Only curly braces {} are allowed for placeholders
 - Return clean, unquoted text only
 
+🌟 CRITICAL TRANSLATION RULE - "Space":
+- "Space" refers to a special app feature like Discord servers
+- KEEP "Space" in English for: cs, da, fi, he, id, ja, ko, nl, no, pl, pt, sk, sl, sr, sv, th, tr, vi, zh-CN, zh-TW
+- TRANSLATE "Space" for all other languages (ar, de, el, es, fr, it, ro, ru, uk)
+
 Preserve formatting and placeholders exactly.
-The word "Space" must always be translated with a capital letter and the equivalent of "Space" in the target language (eg. Espacio, Spazio, etc.). "Space" always means a special thing in the app, similar to Discord servers.
 
 ⚠️ Output ONLY the translations as plain text.
 ⚠️ Return one translation per line, **in the exact same order**, no numbering, no bullet points, no blank lines.
 ⚠️ Do NOT wrap translations in quotes.
+⚠️ Input strings are separated by |||ENTRY_SEPARATOR||| - DO NOT include these separators in your output.
+⚠️ The placeholder |||NEWLINE||| represents a line break - preserve it exactly as |||NEWLINE||| in your translations.
+⚠️ Multiple consecutive |||NEWLINE||| placeholders represent blank lines - preserve ALL of them.
+⚠️ Return ONLY the translated text, one per line, nothing else.
 
-If the language code is `en-PI`, use Pirate English: humorous nautical slang, pirate-style grammar, creative expressions. Be playful but preserve meaning.
+🏴‍☠️ SPECIAL CASE - Pirate English (en-PI):
+If the language code is `en-PI`, translate into Pirate English (NOT Spanish or any other language):
+- Use nautical slang, pirate vocabulary, and pirate grammar
+- Examples: "Ahoy!" "matey," "ye," "yer," "savvy?" "landlubber"
+- Keep it playful but preserve the original meaning
+- Do NOT add introductory phrases like "Arrr, matey! Here be yer translations:"
 
 INPUT FORMAT (what you'll receive):
-Hello {username}
-Welcome to Space
-Add new item
+Hello {username}|||ENTRY_SEPARATOR|||Welcome to Space|||ENTRY_SEPARATOR|||Delete Space|||ENTRY_SEPARATOR|||Are you sure?|||NEWLINE|||This action cannot be undone.
 
 OUTPUT FORMAT (what you should return):
 Hola {username}
 Bienvenido al Espacio
-Agregar nuevo elemento
+Eliminar Espacio
+¿Estás seguro?|||NEWLINE|||Esta acción no se puede deshacer.
 
 WRONG - DO NOT DO THIS:
 "Hola {username}"

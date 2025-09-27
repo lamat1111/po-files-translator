@@ -1,2 +1,12 @@
+# Environment files
 .env
-translate.log
+.env.*
+!.env.example
+
+# Input/Output folders
+input/
+output/
+
+# Log files
+*.log
+logs/
